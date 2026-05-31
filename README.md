@@ -1,8 +1,17 @@
-# Geo-Metrics
+# 🌍 Geo-Metrics
 
 An analytical dashboard covering geography, demographics, and the global economy. It is highly visual and handles a robust volume of data with multiple related relationships (countries that share borders, languages, currencies).
 
-## 📁 Structure of the Project
+## 🚀 Main Technologies
+
+* **Frontend:** React 18, TypeScript, Vite
+* **Styling:** Chakra UI v2
+* **State Management:** Native Context API
+* **HTTP Requests:** TanStack Query (React Query)
+* **Forms and Validation:** React Hook Form + Zod
+* **Testing:** Jest + React Testing Library
+
+## 📁 Project Structure
 
 ```text
 src/
@@ -28,3 +37,46 @@ src/
 ├── routes/                 # React Router v6+ configuration
 ├── store/                  # (Optional) Context API replaces complex global states
 └── types/                  # TypeScript interfaces shared across the app
+```
+
+## 📋 Prerequisites
+
+Make sure you have the following installed on your computer:
+
+- Node.js (version 18 or higher)
+- Git
+
+## 🛠️ Installation and Setup
+
+Follow these steps to run the project in your local environment:
+
+## Clone the repository:
+
+```bash
+git clone https://github.com/your-username/eco-tracker-app.git
+cd eco-tracker-app
+```
+
+## Install the dependencies:
+
+(This command reads the package.json file and automatically downloads all required libraries.)
+
+```bash
+npm install
+```
+
+## Start the development server:
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`.
+
+## 🧪 Running Tests
+
+To run the unit test suite (Jest), use the following command:
+
+```bash
+npm run test
+```
