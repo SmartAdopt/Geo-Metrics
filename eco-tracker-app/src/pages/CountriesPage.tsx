@@ -3,12 +3,13 @@
  * Displays grid of countries with filtering and search
  */
 
-
 import Spinner from '../components/Spinner';
-import { useCountries } from '../hooks/useCountries';
+import { useMemo, useState, useCallback } from 'react';
 import CountryCard from '../components/CountryCard';
-import FilterPanel from '../components/FilterPanel';
 import type { Country } from '../models/country';
+import { getAllCountries } from '../services/getCountries';
+import FilterPanel from '../components/FilterPanel';
+import { useQuery } from '@tanstack/react-query';
 
 /**
  * CountriesPage Component - Main page for exploring countries
@@ -19,24 +20,48 @@ import type { Country } from '../models/country';
  * - Loading and error states
  */
 function CountriesPage() {
+  type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania';
+
+  const [searchText, setSearchText] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
+
   const {
-    filteredCountries,
+    data: allCountries = [],
     isLoading,
     error,
-    searchByText,
-    filterByRegion,
-    selectedRegion,
-    searchText,
-  } = useCountries();
+  } = useQuery({
+    queryKey: ['countries', 'all'],
+    queryFn: getAllCountries,
+  });
+
+  const filteredCountries = useMemo(() => {
+    let results = allCountries;
+
+    if (selectedRegion) {
+      results = results.filter((country) => country.region === selectedRegion);
+    }
+
+    if (searchText.trim()) {
+      const lowerText = searchText.toLowerCase();
+      results = results.filter(
+        (country) =>
+          country.name.common.toLowerCase().includes(lowerText) ||
+          country.cca3.toLowerCase().includes(lowerText)
+      );
+    }
+
+    return results;
+  }, [allCountries, selectedRegion, searchText]);
+
+  const searchByText = useCallback((text: string) => setSearchText(text), []);
+  const filterByRegion = useCallback((region: Region | null) => setSelectedRegion(region), []);
 
   return (
     <div className="bg-gray-50 min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4">
         {/* Page Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
-            Explore Countries
-          </h1>
+          <h1 className="text-4xl font-bold text-gray-800 mb-2">Explore Countries</h1>
           <p className="text-gray-600">
             Discover information about countries from around the world
           </p>
@@ -61,7 +86,7 @@ function CountriesPage() {
         {error && (
           <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6">
             <p className="font-bold">Error</p>
-            <p>{error}</p>
+            <p>{error instanceof Error ? error.message : 'Failed to load countries'}</p>
           </div>
         )}
 
@@ -92,6 +117,8 @@ function CountriesPage() {
       </div>
     </div>
   );
-};
+}
 
 export default CountriesPage;
+
+

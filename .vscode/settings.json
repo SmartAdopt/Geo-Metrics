@@ -1,0 +1,6 @@
+{
+    "conventionalCommits.scopes": [
+        "implement practical tests for hooks, forms, and queries",
+        "frontend"
+    ]
+}

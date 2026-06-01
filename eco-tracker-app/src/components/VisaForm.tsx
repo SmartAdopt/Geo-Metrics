@@ -4,13 +4,19 @@
  * Optimized for instant validation and performance
  */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import Input from './Input';
 import Button from './Button';
 import Spinner from './Spinner';
-import type { VisaFormInputs } from '../models/visaForm';
-import { useVisaSubmit } from '../hooks/useVisaSubmit';
+import type { VisaFormInputs, VisaApplicationStatus } from '../models/visaForm';
+
+
+
+
+
+
 
 /**
  * VisaForm Component - Visa application form using React Hook Form
@@ -21,10 +27,12 @@ import { useVisaSubmit } from '../hooks/useVisaSubmit';
  * - Success/error message feedback
  */
 function VisaForm() {
+
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm<VisaFormInputs>({
     mode: 'onChange', // Validate on change for instant feedback
@@ -34,7 +42,35 @@ function VisaForm() {
     },
   });
 
-  const { submitApplication, status, error, resetStatus } = useVisaSubmit();
+
+  const [status, setStatus] = useState<VisaApplicationStatus>('idle');
+  const [error, setError] = useState<string | null>(null);
+
+  const resetStatus = () => {
+    setStatus('idle');
+    setError(null);
+  };
+
+  const submitApplication = async (data: VisaFormInputs): Promise<void> => {
+    try {
+      setStatus('submitting');
+      setError(null);
+
+      if (!data.fullName || !data.email || !data.passport) {
+        throw new Error('Please fill all required fields');
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      console.log('Visa Application Submitted:', data);
+
+      setStatus('success');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to submit application';
+      setError(message);
+      setStatus('error');
+    }
+  };
+
 
   // Handle form submission
   const onSubmit = async (data: VisaFormInputs) => {
@@ -206,12 +242,13 @@ function VisaForm() {
             type="submit"
             variant="primary"
             size="lg"
-            disabled={!isValid || status === 'submitting'}
+            disabled={status === 'submitting'}
             isLoading={status === 'submitting'}
             className="flex-1"
           >
             {status === 'submitting' ? 'Submitting...' : 'Submit Application'}
           </Button>
+
           <Button
             type="button"
             variant="outline"

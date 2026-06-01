@@ -1,73 +1,113 @@
-# React + TypeScript + Vite
+# Geo-Metrics — eco-tracker-app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación React (Vite + TypeScript) para explorar países y completar una solicitud de visa.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Countries Explorer**: búsqueda en tiempo real + filtro por región.
+- **Country Detail**: información detallada y países fronterizos.
+- **Visa Application**: formulario con validación en tiempo real (React Hook Form).
+- **TanStack Query**: proveedor global para consultas/caché.
+- **UI responsive** con Tailwind CSS.
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- React Router
+- TypeScript
+- Tailwind CSS
+- React Hook Form
+- TanStack Query
 
-## Expanding the ESLint configuration
+## Estructura del proyecto
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```txt
+src/
+├─ assets/
+│  └─ react.svg
+├─ components/
+│  ├─ BorderCountries.tsx
+│  ├─ Button.tsx
+│  ├─ CountryCard.tsx
+│  ├─ CountryCardInformation.tsx
+│  ├─ FilterPanel.tsx
+│  ├─ Footer.tsx
+│  ├─ Header.tsx
+│  ├─ Input.tsx
+│  ├─ Spinner.tsx
+│  ├─ VisaForm.tsx
+│  └─ WeatherWidget.tsx
+├─ models/
+│  ├─ country.ts
+│  ├─ countryDetail.ts
+│  └─ visaForm.ts
+├─ pages/
+│  ├─ CountriesPage.tsx
+│  ├─ CountryDetailPage.tsx
+│  └─ VisaApplicationPage.tsx
+├─ services/
+│  ├─ getCountries.ts
+│  └─ getCountryDetail.ts
+├─ App.tsx
+├─ index.css
+└─ main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Instalación
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+## Desarrollo
+
+```bash
+npm run dev
+```
+
+## Build (producción)
+
+```bash
+npm run build
+```
+
+## Preview (producción)
+
+```bash
+npm run preview
+```
+
+## Rutas (Pages)
+
+- **`/countries`** → `src/pages/CountriesPage.tsx`
+  - Búsqueda + filtro por región.
+
+- **`/country/:code`** → `src/pages/CountryDetailPage.tsx`
+  - Detalle del país + fronterizos.
+
+- **`/visa-application`** → `src/pages/VisaApplicationPage.tsx`
+  - Formulario de visa (`src/components/VisaForm.tsx`).
+
+## Nota sobre API
+
+La app consume la **REST Countries API** (`https://restcountries.com/v3.1`) para obtener información.
+
+- `src/services/getCountries.ts` → listado (y/o por región)
+- `src/services/getCountryDetail.ts` → detalle por código + fronterizos
+
+## TanStack Query
+
+- `src/main.tsx` usa `QueryClientProvider` para el cliente global.
+- `src/query/queryClient.ts` define defaults (staleTime, retry, etc.).
+- `CountriesPage` carga el listado con `useQuery`.
+- `CountryDetailPage` carga país y fronteras con `useQuery`.
+
+## Verificación rápida (demo)
+
+1) Levanta el servidor: `npm run dev`
+2) Abre:
+   - `http://localhost:5173/countries`
+   - `http://localhost:5173/country/<code>`
+3) En DevTools → Network, observa que se consulten endpoints de `https://restcountries.com/v3.1`.
+
+

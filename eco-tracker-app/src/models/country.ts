@@ -27,7 +27,9 @@ export interface Country {
 }
 
 // API Response type for REST countries API
-export interface CountriesApiResponse extends Country {}
+// (alias para mantener compatibilidad con posibles usos futuros)
+export type CountriesApiResponse = Country;
+
 
 
 // Filter options for countries explorer

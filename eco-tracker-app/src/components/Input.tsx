@@ -3,7 +3,8 @@
  * Reusable input field with label support and various sizes
  */
 
-import React from 'react';
+import React, { useId } from 'react';
+
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
   label?: string;
@@ -27,6 +28,8 @@ function Input({
   className,
   ...props
 }: InputProps) {
+  const generatedId = useId();
+
   // Size styles mapping
   const sizeStyles = {
     sm: 'px-2 py-1 text-sm',
@@ -48,9 +51,19 @@ function Input({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
+        <label
+          htmlFor={typeof props.id === 'string' ? props.id : generatedId}
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          {label}
+        </label>
       )}
-      <input className={classes} {...props} />
+      <input
+        id={typeof props.id === 'string' ? props.id : generatedId}
+        className={classes}
+        {...props}
+      />
+
       {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
       {helperText && !error && <p className="text-gray-500 text-sm mt-1">{helperText}</p>}
     </div>

@@ -8,6 +8,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Input from './Input';
 
+
 type Region = 'Africa' | 'Americas' | 'Asia' | 'Europe' | 'Oceania';
 
 const REGIONS: Region[] = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
@@ -47,9 +48,8 @@ function FilterPanel({
   const currentSearch = watch('search');
 
   // Update parent component on search change
-  React.useEffect(() => {
-    onSearchChange(currentSearch);
-  }, [currentSearch, onSearchChange]);
+  React.useEffect(() => onSearchChange(currentSearch), [currentSearch, onSearchChange]);
+
 
   // Handle region button click
   const handleRegionClick = (region: Region) => {
