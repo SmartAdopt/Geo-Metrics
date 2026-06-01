@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL_BASE: string = import.meta.env.API_BASE_URL;
+const URL_BASE: string = import.meta.env.VITE_API_BASE_URL || 'https://restcountries.com/v3.1/';
 
 const getBaseRequest = axios.create(
     {

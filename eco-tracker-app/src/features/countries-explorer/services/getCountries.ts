@@ -15,8 +15,7 @@ export const getAllCountries = async () => {
         const response = await getBaseRequest.get("/all",
             {
                 params: {
-                    status: true,
-                    fields: 'name,flags',
+                    fields: 'name,flags,cca2,capital,region',
                 }
             });
         return response.data;

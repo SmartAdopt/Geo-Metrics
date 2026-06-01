@@ -1,16 +1,15 @@
 import {makeAutoObservable, runInAction} from 'mobx'
-import {getAllCountries} from "@/features/countries-explorer/services/getCountries";
-import type { Country } from "@/types/country.types";
+import {getAllCountries, getAllCountriesByName} from "@/features/countries-explorer/services/getCountries";
+import {getCountryByCode} from "@/features/country-detail/services/getCountry";
+import type {Country} from "@/types/country.types";
 
 
 class RootStore {
     countries: Country[] = [];
-    selectedCountry: Country | null = null;
-    favorites: Country[] = [];
+    filteredCountries: Country[] = [];
     isLoading = false;
     error: string | null = null;
-    search = "";
-    region = "";
+    country: Country[] = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -24,6 +23,7 @@ class RootStore {
             const response = await getAllCountries();
             runInAction(() => {
                 this.countries = response;
+                this.filteredCountries = response;
             });
 
         } catch (error) {
@@ -40,48 +40,50 @@ class RootStore {
         }
     }
 
-    setSearch(value: string) {
-        this.search = value;
-    }
+    async searchCountries(name: string) {
+        this.isLoading = true;
+        this.error = null;
 
-    setRegion(value: string) {
-        this.region = value;
-    }
-
-    toggleFavorite(country: Country) {
-
-        const exists = this.favorites.some(
-            fav => fav.cca3 === country.cca3
-        );
-
-        if (exists) {
-            this.favorites = this.favorites.filter(
-                fav => fav.cca3 !== country.cca3
-            );
-        } else {
-            this.favorites.push(country);
+        try {
+            const response = await getAllCountriesByName(name);
+            runInAction(() => {
+                this.filteredCountries = response;
+            });
+        } catch (error) {
+            console.error(error);
+            runInAction(() => {
+                this.error = "Country not found";
+                this.filteredCountries = [];
+            });
+        } finally {
+            runInAction(() => {
+                this.isLoading = false;
+            });
         }
     }
 
-    get filteredCountries() {
+    async fetchCountryByCode(code: string) {
+        this.isLoading = true;
+        this.error = null;
 
-        return this.countries.filter(country => {
+        try {
+            const response = await getCountryByCode(code);
+            runInAction(() => {
+                this.country = response;
+            });
 
-            const matchesSearch =
-                country.name.common
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
+        } catch (error) {
+            console.error(error);
+            runInAction(() => {
+                this.error = "Error loading country";
+            });
 
-            const matchesRegion =
-                this.region === "" ||
-                country.region === this.region;
+        } finally {
+            runInAction(() => {
+                this.isLoading = false;
+            });
 
-            return matchesSearch && matchesRegion;
-        });
-    }
-
-    clearSelectedCountry() {
-        this.selectedCountry = null;
+        }
     }
 
 }
