@@ -41,7 +41,7 @@ export default function VisaApplication() {
   return (
     <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-8 my-8 border border-gray-200">
       <h1 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
-        Solicitud de Visado Electrónico
+        Electronic Visa Application
       </h1>
 
       <Formik
@@ -53,7 +53,7 @@ export default function VisaApplication() {
           <Form className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="fullName">
-                Nombre Completo
+                Full Name
               </label>
               {/* Formik provee el componente Field que se enlaza automáticamente con nuestro <Input> usando as={Input} */}
               <Field
@@ -61,21 +61,21 @@ export default function VisaApplication() {
                 type="text"
                 id="fullName"
                 name="fullName"
-                placeholder="Ej. Juan Pérez"
+                placeholder="E.g. John Doe"
               />
               <ErrorMessage name="fullName" component="div" className="text-red-500 text-sm mt-1" />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
-                Correo Electrónico
+                Email Address
               </label>
               <Field
                 as={Input}
                 type="email"
                 id="email"
                 name="email"
-                placeholder="ejemplo@correo.com"
+                placeholder="example@email.com"
               />
               <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
             </div>
@@ -83,21 +83,21 @@ export default function VisaApplication() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="passport">
-                  Número de Pasaporte
+                  Passport Number
                 </label>
                 <Field
                   as={Input}
                   type="text"
                   id="passport"
                   name="passport"
-                  placeholder="Alfanumérico (6-9 carácteres)"
+                  placeholder="Alphanumeric (6-9 characters)"
                 />
                 <ErrorMessage name="passport" component="div" className="text-red-500 text-sm mt-1" />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="destination">
-                  País de Destino
+                  Destination Country
                 </label>
                 <Field
                   as="select"
@@ -105,12 +105,12 @@ export default function VisaApplication() {
                   name="destination"
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                 >
-                  <option value="">Seleccione un país...</option>
-                  <option value="MEX">México</option>
-                  <option value="CAN">Canadá</option>
-                  <option value="USA">Estados Unidos</option>
-                  <option value="GBR">Reino Unido</option>
-                  <option value="JPN">Japón</option>
+                  <option value="">Select a country...</option>
+                  <option value="MEX">Mexico</option>
+                  <option value="CAN">Canada</option>
+                  <option value="USA">United States</option>
+                  <option value="GBR">United Kingdom</option>
+                  <option value="JPN">Japan</option>
                 </Field>
                 <ErrorMessage name="destination" component="div" className="text-red-500 text-sm mt-1" />
               </div>
@@ -118,14 +118,14 @@ export default function VisaApplication() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="password">
-                Contraseña para seguimiento
+                Tracking Password
               </label>
               <Field
                 as={Input}
                 type="password"
                 id="password"
                 name="password"
-                placeholder="Mínimo 8 caracteres (letras y números)"
+                placeholder="Minimum 8 characters (letters and numbers)"
               />
               <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
             </div>
@@ -133,7 +133,7 @@ export default function VisaApplication() {
             <div className="pt-2">
               <label className="flex items-center space-x-2 text-sm text-gray-700 cursor-pointer">
                 <Field type="checkbox" name="acceptTerms" className="rounded text-blue-600 focus:ring-blue-500 h-4 w-4" />
-                <span>Declaro que toda la información proporcionada es verídica y acepto los términos.</span>
+                <span>I declare that all provided information is true and accept the terms.</span>
               </label>
               <ErrorMessage name="acceptTerms" component="div" className="text-red-500 text-sm mt-1" />
             </div>
@@ -146,10 +146,10 @@ export default function VisaApplication() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Procesando solicitud...
+                    Processing application...
                   </>
                 ) : (
-                  'Enviar Solicitud'
+                  'Submit Application'
                 )}
               </Button>
             </div>

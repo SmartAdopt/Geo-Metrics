@@ -23,27 +23,27 @@ export function Header() {
   return (
     <header className="bg-blue-800 text-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        
+
         <Link to="/countries" className="text-2xl font-bold tracking-wide hover:text-blue-200 transition-colors">
           Geo-Metrics
         </Link>
 
         <nav className="flex gap-6 items-center">
-          <Link 
-            to="/countries" 
+          <Link
+            to="/countries"
             className="text-gray-100 hover:text-white font-medium [&.active]:text-yellow-400 [&.active]:font-bold"
           >
             Explorer
           </Link>
-          <Link 
-            to="/visa-application" 
+          <Link
+            to="/visa-application"
             className="text-gray-100 hover:text-white font-medium [&.active]:text-yellow-400 [&.active]:font-bold"
           >
             Visa Application
           </Link>
-          
+
           <div className="relative" ref={popoverRef}>
-            <button 
+            <button
               onClick={() => setIsOpen(!isOpen)}
               className="bg-blue-700 px-3 py-1 rounded-full text-sm font-bold border border-blue-600 hover:bg-blue-600 transition-colors"
             >
@@ -64,8 +64,8 @@ export function Header() {
                     favorites.map((code) => (
                       <div key={code} className="px-4 py-2 border-b border-gray-50 last:border-0 flex justify-between items-center">
                         <span className="font-medium text-gray-700">{code}</span>
-                        <Link 
-                          to="/country/$code" 
+                        <Link
+                          to="/country/$code"
                           params={{ code }}
                           onClick={() => setIsOpen(false)}
                           className="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors"

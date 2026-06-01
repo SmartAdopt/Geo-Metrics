@@ -54,23 +54,23 @@ describe('CountryCard Component', () => {
     // Verify flag image is loaded
     cy.get('img')
       .should('have.attr', 'src', 'https://flagcdn.com/mx.svg')
-      .should('have.attr', 'alt', 'Bandera de Mexico');
+      .should('have.attr', 'alt', 'Flag of Mexico');
   });
 
   it('toggles favorite status', () => {
     // Initially it should not be marked as favorite
-    cy.get('button').contains('☆ Marcar Favorito').should('be.visible');
+    cy.get('button').contains('☆ Mark Favorite').should('be.visible');
 
     // Click the favorite button
     cy.get('button').click();
 
     // Verify it is now marked as favorite (solid star)
-    cy.get('button').contains('★ Favorito Guardado').should('be.visible');
+    cy.get('button').contains('★ Saved Favorite').should('be.visible');
 
     // Click again to unmark it
     cy.get('button').click();
 
     // Verify it returned to the normal state
-    cy.get('button').contains('☆ Marcar Favorito').should('be.visible');
+    cy.get('button').contains('☆ Mark Favorite').should('be.visible');
   });
 });

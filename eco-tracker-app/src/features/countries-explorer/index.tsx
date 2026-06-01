@@ -22,7 +22,7 @@ export default function CountriesExplorer() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh]">
         <Spinner />
-        <p className="mt-4 text-gray-600 font-medium">Cargando información del mundo...</p>
+        <p className="mt-4 text-gray-600 font-medium">Loading global information...</p>
       </div>
     );
   }
@@ -30,8 +30,8 @@ export default function CountriesExplorer() {
   if (isError) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh]">
-        <p className="text-red-600 text-xl font-bold">Hubo un error al cargar los países.</p>
-        <p className="text-gray-500 mt-2">Por favor, recarga la página o inténtalo más tarde.</p>
+        <p className="text-red-600 text-xl font-bold">There was an error loading the countries.</p>
+        <p className="text-gray-500 mt-2">Please refresh the page or try again later.</p>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function CountriesExplorer() {
   return (
     <div className="max-w-7xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-        Explorador Global de Países
+        Global Country Explorer
       </h1>
 
       {/* Panel de Búsqueda controlado por Formik */}
@@ -48,7 +48,7 @@ export default function CountriesExplorer() {
       {/* Resultados */}
       {filteredCountries.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No se encontraron países con esos filtros.</p>
+          <p className="text-gray-500 text-lg">No countries found matching your filters.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

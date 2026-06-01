@@ -20,7 +20,7 @@ export function CountryCard({ country }: CountryCardProps) {
       <Link to="/country/$code" params={{ code: country.cca3 }} className="block overflow-hidden relative">
         <img 
           src={country.flags.svg} 
-          alt={`Bandera de ${country.name.common}`} 
+          alt={`Flag of ${country.name.common}`} 
           className="w-full h-40 object-cover hover:scale-105 transition-transform duration-300"
           loading="lazy"
         />
@@ -35,8 +35,8 @@ export function CountryCard({ country }: CountryCardProps) {
           {country.name.common}
         </h3>
         <p className="text-sm text-gray-500 mb-4 flex-grow">
-          <span className="block"><strong>Región:</strong> {country.region}</span>
-          <span className="block"><strong>Población:</strong> {country.population.toLocaleString()}</span>
+          <span className="block"><strong>Region:</strong> {country.region}</span>
+          <span className="block"><strong>Population:</strong> {country.population.toLocaleString()}</span>
         </p>
 
         <Button 
@@ -44,7 +44,7 @@ export function CountryCard({ country }: CountryCardProps) {
           className="w-full text-sm"
           onClick={() => toggleFavorite(country.cca3)}
         >
-          {favorite ? '★ Favorito Guardado' : '☆ Marcar Favorito'}
+          {favorite ? '★ Saved Favorite' : '☆ Mark Favorite'}
         </Button>
       </div>
     </div>

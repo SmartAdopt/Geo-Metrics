@@ -6,28 +6,28 @@ import { z } from 'zod';
 export const visaSchema = z.object({
   fullName: z
     .string()
-    .min(1, 'El nombre completo es obligatorio')
-    .min(3, 'El nombre debe tener al menos 3 caracteres'),
+    .min(1, 'Full name is required')
+    .min(3, 'Name must be at least 3 characters long'),
   email: z
     .string()
-    .min(1, 'El correo electrónico es obligatorio')
-    .email('Dirección de correo inválida'),
+    .min(1, 'Email address is required')
+    .email('Invalid email address'),
   passport: z
     .string()
-    .min(1, 'El número de pasaporte es obligatorio')
-    .regex(/^[A-Z0-9]{6,9}$/i, 'El pasaporte debe ser alfanumérico (6-9 caracteres)'),
+    .min(1, 'Passport number is required')
+    .regex(/^[A-Z0-9]{6,9}$/i, 'Passport must be alphanumeric (6-9 characters)'),
   destination: z
     .string()
-    .min(1, 'Debe seleccionar un país de destino'),
+    .min(1, 'You must select a destination country'),
   password: z
     .string()
-    .min(1, 'La contraseña es obligatoria')
-    .min(8, 'Debe tener al menos 8 caracteres')
-    .regex(/(?=.*[A-Za-z])(?=.*\d)/, 'Debe contener al menos una letra y un número'),
+    .min(1, 'Password is required')
+    .min(8, 'Must be at least 8 characters long')
+    .regex(/(?=.*[A-Za-z])(?=.*\d)/, 'Must contain at least one letter and one number'),
   acceptTerms: z
     .boolean()
     .refine((val) => val === true, {
-      message: 'Debe aceptar los términos y condiciones',
+      message: 'You must accept the terms and conditions',
     }),
 });
 

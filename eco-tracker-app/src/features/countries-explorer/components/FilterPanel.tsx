@@ -29,12 +29,12 @@ export function FilterPanel({ onFilterChange }: FilterPanelProps) {
         {({ values, handleChange }) => (
           <Form className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
-              <label htmlFor="search" className="sr-only">Buscar País</label>
+              <label htmlFor="search" className="sr-only">Search Country</label>
               <input
                 id="search"
                 name="search"
                 type="text"
-                placeholder="Buscar por nombre..."
+                placeholder="Search by name..."
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={values.search}
                 onChange={handleChange}
@@ -42,7 +42,7 @@ export function FilterPanel({ onFilterChange }: FilterPanelProps) {
             </div>
             
             <div className="sm:w-48">
-              <label htmlFor="region" className="sr-only">Filtrar por Región</label>
+              <label htmlFor="region" className="sr-only">Filter by Region</label>
               <select
                 id="region"
                 name="region"
@@ -50,12 +50,12 @@ export function FilterPanel({ onFilterChange }: FilterPanelProps) {
                 value={values.region}
                 onChange={handleChange}
               >
-                <option value="">Todas las regiones</option>
-                <option value="Africa">África</option>
-                <option value="Americas">América</option>
+                <option value="">All Regions</option>
+                <option value="Africa">Africa</option>
+                <option value="Americas">Americas</option>
                 <option value="Asia">Asia</option>
-                <option value="Europe">Europa</option>
-                <option value="Oceania">Oceanía</option>
+                <option value="Europe">Europe</option>
+                <option value="Oceania">Oceania</option>
               </select>
             </div>
           </Form>
