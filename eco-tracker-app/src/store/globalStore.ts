@@ -4,15 +4,22 @@ import {getCountryByCode} from "@/features/country-detail/services/getCountry";
 import type {Country} from "@/types/country.types";
 
 
+import type { VisaApplicationFormData } from "@/features/visa-application/schemas/visaValidationSchema";
+
 class RootStore {
     countries: Country[] = [];
     filteredCountries: Country[] = [];
     isLoading = false;
     error: string | null = null;
     country: Country[] = [];
+    visaApplications: VisaApplicationFormData[] = [];
 
     constructor() {
         makeAutoObservable(this);
+    }
+
+    addVisaApplication(application: VisaApplicationFormData) {
+        this.visaApplications.push(application);
     }
 
     async fetchCountries() {
